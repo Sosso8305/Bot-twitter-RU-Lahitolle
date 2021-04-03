@@ -97,7 +97,7 @@ class MenuRuOnTwitter():
     def Tweet(self):
         if(self.Research()):
             menu = self.SortData()
-            return self.PostMessage(menu[0]) and self.PostMessage(menu[1])
+            return self.PostMessage(menu[1]) and self.PostMessage(menu[0])
         else:
             nothing = f"{self.DateOfToday()}  \n\n Il n'y a pas de menu pour aujourd'hui"
             return self.PostMessage(nothing)
