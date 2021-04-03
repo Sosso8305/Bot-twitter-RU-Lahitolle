@@ -97,7 +97,8 @@ class MenuRuOnTwitter():
     def Tweet(self):
         if(self.Research()):
             menu = self.SortData()
-            return self.PostMessage(menu[0]) and self.PostMessage(menu[1])
+            if(not(self.PostMessage(menu[0]) and self.PostMessage(menu[1]))):
+                self.PostMessage(f"🍴{self.DateOfToday()} \n\n 🔔 Un des menus est trop long pour Twitter 🔔  \n Donc GO sur le site du RU ... \n\n 🌐 {self.URL}")
         else:
             nothing = f"🍴{self.DateOfToday()}  \n\n ⚠️Il n'y a pas de menu pour aujourd'hui⚠️"
             return self.PostMessage(nothing)
@@ -108,6 +109,7 @@ class MenuRuOnTwitter():
 
 URL = "https://www.crous-orleans-tours.fr/restaurant/cafeteria-lahitolle/"
 Bot = MenuRuOnTwitter(API_key,API_secret_key,token,secret_token,URL)
+
 Bot.Tweet()
 
 
