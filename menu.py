@@ -6,7 +6,7 @@ from datetime import date
 
 
 
-DATE="Menu du vendredi 2 avril 2021"
+DEBUG=0
 
 class MenuRuOnTwitter():
     def __init__(self,API_key,API_secret_key,token,secret_token,URL):
@@ -15,14 +15,14 @@ class MenuRuOnTwitter():
         
 
     def PostMessage(self,message):
-        if(len(message)<140):
+        if(len(message)<281):
             reponse = self.api.request('statuses/update', {'status':message})
             return True if reponse.status_code == 200  else False
         return False
 
 
-    def getPage(self,URL):
-        reponse = get(URL)
+    def getPage(self):
+        reponse = get(self.URL)
         if reponse.status_code == 200:
             self.source=reponse.text
             return True
@@ -39,20 +39,19 @@ class MenuRuOnTwitter():
         return MessageDate
 
     def Research(self):
-        if(self.getPage(self.URL)):
+        if(self.getPage()):
             self.data=[]
             
             HtmlParser = BeautifulSoup(self.source, 'html.parser')
             listToday=HtmlParser.find('ul',attrs={'class':'slides'})
 
-            #print(listToday)
             
             indice=0
             find=False
 
             listTodays=listToday.find_all('h3')
             for day in listTodays:
-                if(day.getText() == DATE): # self.DateOfToday()):
+                if(day.getText() == self.DateOfToday()):
                     find = True
                     break
 
@@ -71,12 +70,14 @@ class MenuRuOnTwitter():
                 return True
 
             else:
-                print(self.DateOfToday()+" don't exits")
+                if(DEBUG):
+                    print(self.DateOfToday()+" don't exits")
                 return False
         
             
         else:
-            print("erreur: getPage()")
+            if(DEBUG):
+                print("erreur: getPage()")
             return False
 
     def SortData(self):
@@ -84,14 +85,21 @@ class MenuRuOnTwitter():
         soir=[]
         for menu in self.data:
             if(menu[:4] == "MIDI"):
-                midi.append(menu[7:])
+                midi.append(menu[6:])
             else:
-                soir.append(menu[7:])
+                soir.append(menu[6:])
         
-        MENU = f" \033[4m{self.DateOfToday()}\033[0m   \n\n  MIDI \n \t Entrée --> {midi[0]}  \n \t Plat --> {midi[1]}  \n \t Plat Végétarien--> {midi[2]}  \n \t Désert--> {midi[3]} \n\n Soir  \n \t Entrée --> {soir[0]} \n \t Plat --> {soir[1]} \n \t Désert --> {soir[2]}"
+        MENU = f"{self.DateOfToday()}\n\nMidi:\n\tEntrée-->{midi[0]}\n\tPlat-->{midi[1]}\n\tPlat Végétarien-->{midi[2]}\n\tDésert-->{midi[3]}\n\nSoir:\n\tEntrée-->{soir[0]}\n\tPlat -->{soir[1]}\n\tDésert-->{soir[2]}"
         
 
         return MENU 
+
+    def Tweet(self):
+        if(self.Research()):
+           return self.PostMessage(self.SortData())
+        else:
+            nothing = f"{self.DateOfToday()}  \n\n Il n'y a pas de menu pour aujourd'hui"
+            return self.PostMessage(nothing)
 
 
 
@@ -99,7 +107,7 @@ class MenuRuOnTwitter():
 
 URL = "https://www.crous-orleans-tours.fr/restaurant/cafeteria-lahitolle/"
 Bot = MenuRuOnTwitter(API_key,API_secret_key,token,secret_token,URL)
-
+Bot.Tweet()
 
 
 
