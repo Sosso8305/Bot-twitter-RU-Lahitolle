@@ -89,14 +89,15 @@ class MenuRuOnTwitter():
             else:
                 soir.append(menu[6:])
         
-        MENU = f"{self.DateOfToday()}\n\nMidi:\n\tEntrée-->{midi[0]}\n\tPlat-->{midi[1]}\n\tPlat Végétarien-->{midi[2]}\n\tDésert-->{midi[3]}\n\nSoir:\n\tEntrée-->{soir[0]}\n\tPlat -->{soir[1]}\n\tDésert-->{soir[2]}"
+        MENU = [f"{self.DateOfToday()}\n\nMidi:\n\n\tEntrée-->{midi[0]}\n\tPlat-->{midi[1]}\n\tPlat Végétarien-->{midi[2]}\n\tDésert-->{midi[3]}",f"{self.DateOfToday()}\n\nSoir:\n\n\tEntrée-->{soir[0]}\n\tPlat -->{soir[1]}\n\tDésert-->{soir[2]}"]
         
 
         return MENU 
 
     def Tweet(self):
         if(self.Research()):
-           return self.PostMessage(self.SortData())
+            menu = self.SortData()
+            return self.PostMessage(menu[0]) and self.PostMessage(menu[1])
         else:
             nothing = f"{self.DateOfToday()}  \n\n Il n'y a pas de menu pour aujourd'hui"
             return self.PostMessage(nothing)
@@ -108,6 +109,7 @@ class MenuRuOnTwitter():
 URL = "https://www.crous-orleans-tours.fr/restaurant/cafeteria-lahitolle/"
 Bot = MenuRuOnTwitter(API_key,API_secret_key,token,secret_token,URL)
 Bot.Tweet()
+
 
 
 
