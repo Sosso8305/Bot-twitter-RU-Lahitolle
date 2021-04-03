@@ -1,0 +1,6 @@
+API_key = "your_API_key"
+API_secret_key = "your_API_secret_key "
+Bearer_token = "" #don't use in this app
+token = "your_token"
+secret_token = "your_secret_token"
+
