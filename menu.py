@@ -89,7 +89,7 @@ class MenuRuOnTwitter():
             else:
                 soir.append(menu[6:])
         
-        MENU = [f"{self.DateOfToday()}\n\nMidi:\n\n\tEntrée-->{midi[0]}\n\tPlat-->{midi[1]}\n\tPlat Végétarien-->{midi[2]}\n\tDésert-->{midi[3]}",f"{self.DateOfToday()}\n\nSoir:\n\n\tEntrée-->{soir[0]}\n\tPlat -->{soir[1]}\n\tDésert-->{soir[2]}"]
+        MENU = [f"🍴{self.DateOfToday()}\n\n🌞Midi:\n\n🥬Entrée-->{midi[0]}\n🍗Plat-->{midi[1]}\n🥦Plat Végétarien-->{midi[2]}\n🍩Désert-->{midi[3]}",f"🍴{self.DateOfToday()}\n\n🌝Soir:\n\n🥬Entrée-->{soir[0]}\n🍗Plat -->{soir[1]}\n🍩Désert-->{soir[2]}"]
         
 
         return MENU 
@@ -97,9 +97,9 @@ class MenuRuOnTwitter():
     def Tweet(self):
         if(self.Research()):
             menu = self.SortData()
-            return self.PostMessage(menu[1]) and self.PostMessage(menu[0])
+            return self.PostMessage(menu[0]) and self.PostMessage(menu[1])
         else:
-            nothing = f"{self.DateOfToday()}  \n\n Il n'y a pas de menu pour aujourd'hui"
+            nothing = f"🍴{self.DateOfToday()}  \n\n ⚠️Il n'y a pas de menu pour aujourd'hui⚠️"
             return self.PostMessage(nothing)
 
 
