@@ -2,7 +2,7 @@ from TwitterAPI import TwitterAPI
 from key import API_key,API_secret_key,secret_token,token
 from requests import get
 from bs4 import BeautifulSoup
-from datetime import date
+from datetime import date,timedelta
 
 
 
@@ -31,7 +31,7 @@ class MenuRuOnTwitter():
     def DateOfToday(self):
         days=['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche']
         months=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre']
-        Date=date.today()
+        Date=date.today()+timedelta(days=1)
         day=days[Date.weekday()]
         month=months[Date.month-1]
         MessageDate= "Menu du "+ day +" "+ str(Date.day) + " "+month+ " " + str(Date.year)
