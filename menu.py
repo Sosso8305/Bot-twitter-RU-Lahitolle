@@ -89,7 +89,7 @@ class MenuRuOnTwitter():
             else:
                 soir.append(menu[6:])
         
-        MENU = [f"🍴{self.DateOfToday()}\n\n🌞Midi:\n\n🥬Entrée-->{midi[0]}\n🍗Plat-->{midi[1]}\n🥦Plat Végétarien-->{midi[2]}\n🍩Désert-->{midi[3]}",f"🍴{self.DateOfToday()}\n\n🌝Soir:\n\n🥬Entrée-->{soir[0]}\n🍗Plat -->{soir[1]}\n🍩Désert-->{soir[2]}"]
+        MENU = [f"🍴{self.DateOfToday()}\n\n🌞Midi:\n\n🥬Entrée-->{midi[0]}\n🍗Plat-->{midi[1]}\n🥦Plat Végétarien-->{midi[2]}\n🍩Dessert-->{midi[3]}",f"🍴{self.DateOfToday()}\n\n🌝Soir:\n\n🥬Entrée-->{soir[0]}\n🍗Plat -->{soir[1]}\n🍩Désert-->{soir[2]}"]
         
 
         return MENU 
